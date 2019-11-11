@@ -121,4 +121,12 @@ public class BufferMgr {
    private boolean waitingTooLong(long starttime) {
       return System.currentTimeMillis() - starttime > MAX_TIME;
    }
+   
+   public void setStrategy(int s) {
+	bufferMgr.setStrategy(s);
+   }
+   
+   public Buffer[] getBuffers() {
+       return bufferMgr.getBuffers();
+   }
 }

@@ -123,6 +123,11 @@ class BasicBufferMgr {
     }
 
     private Buffer chooseUnpinnedBuffer() {
+        for (Buffer b: bufferpool) {
+            if (b.block() == null) {
+                return b;
+            }
+        }
         switch (this.strategy) {
             case 0:
                 return useNaiveStrategy();
@@ -182,7 +187,17 @@ class BasicBufferMgr {
      * @return
      */
     private Buffer useLRUStrategy() {
-        throw new UnsupportedOperationException();
+        Buffer lastIn = null;
+        long UnpinLast = Long.MAX_VALUE;
+        for (Buffer buff: bufferpool) {
+            if (!buff.isPinned()) {
+                if (buff.getTimeOut() < UnpinLast) {
+                    lastIn = buff;
+                    UnpinLast = buff.getTimeOut();
+                }
+            }
+        }
+        return lastIn;
     }
 
     /**
