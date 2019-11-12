@@ -1,7 +1,6 @@
 package simpledb.buffer;
 
 import simpledb.file.*;
-
 /**
  * Manages the pinning and unpinning of buffers to blocks.
  *
@@ -13,6 +12,7 @@ class BasicBufferMgr {
     private Buffer[] bufferpool;
     private int numAvailable;
     private int strategy;
+    private Integer clockMethod = null;
 
     /**
      * Creates a buffer manager having the specified number of buffer slots.
@@ -178,7 +178,15 @@ class BasicBufferMgr {
      * @return
      */
     private Buffer useFIFOStrategy() {
-        throw new UnsupportedOperationException();
+        Buffer firstBuffer = null;
+        long lastPin = Long.MAX_VALUE;
+        for (Buffer buff: bufferpool) {
+            if(!buff.isPinned() && (buff.getTimeIn() < lastPin)){
+                lastPin = buff.getTimeIn();
+                firstBuffer = buff;
+            }
+        }
+        return firstBuffer;
     }
 
     /**
@@ -187,25 +195,39 @@ class BasicBufferMgr {
      * @return
      */
     private Buffer useLRUStrategy() {
-        Buffer lastIn = null;
-        long UnpinLast = Long.MAX_VALUE;
-        for (Buffer buff: bufferpool) {
-            if (!buff.isPinned()) {
-                if (buff.getTimeOut() < UnpinLast) {
-                    lastIn = buff;
-                    UnpinLast = buff.getTimeOut();
-                }
-            }
-        }
-        return lastIn;
+       Buffer lastInBuffer= null;
+       long lastPin = Long.MAX_VALUE;
+       for (Buffer buff: bufferpool) {
+           if (!buff.isPinned()) {
+               if (buff.getTimeOut() < lastPin) {
+                   lastInBuffer = buff;
+                   lastPin = buff.getTimeOut();
+               }
+           }
+       }
+       return lastInBuffer;
     }
-
     /**
      * Clock buffer selection strategy
      *
      * @return
      */
     private Buffer useClockStrategy() {
-        throw new UnsupportedOperationException();
+        if (clockMethod == null) {
+            long lastPin = Long.MIN_VALUE;
+            for(int i=0; i<bufferpool.length; ++i) {
+                if (!bufferpool[i].isPinned() && bufferpool[i].getTimeOut() > lastPin) {
+                    clockMethod = i;
+                    lastPin = bufferpool[clockMethod].getTimeOut();
+                }
+            }
+        }
+        for(int i=clockMethod+1; i<bufferpool.length+clockMethod; ++i) {
+            if (!bufferpool[i%bufferpool.length].isPinned()) {
+                clockMethod = i%bufferpool.length;
+                return bufferpool[i%bufferpool.length];
+            }
+        }
+        return null;
     }
 }

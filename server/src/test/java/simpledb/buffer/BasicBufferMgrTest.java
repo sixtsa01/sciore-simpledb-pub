@@ -17,6 +17,8 @@ import simpledb.server.SimpleDB;
 /**
  * @author yasiro01
  */
+
+
 public class BasicBufferMgrTest {
 
     private BufferMgr instance4;
@@ -73,9 +75,7 @@ public class BasicBufferMgrTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of Naive Buffer selection strategy, of class BasicBufferMgr.
-     */
+
     @Test
     public void testNaiveStrategy4() {
         System.out.println("Naive Strategy (4 buffers)");
@@ -94,9 +94,7 @@ public class BasicBufferMgrTest {
         assertTrue(Arrays.equals(expected, result.toArray(new Integer[result.size()])));
      }
 
-    /**
-     * Test of Naive Buffer selection strategy, of class BasicBufferMgr.
-     */
+
     @Test
     public void testNaiveStrategy5() {
         System.out.println("Naive Strategy (5 buffers)");
@@ -115,9 +113,7 @@ public class BasicBufferMgrTest {
         assertTrue(Arrays.equals(expected, result.toArray(new Integer[result.size()])));
      }
 
-    /**
-     * Test of FIFO Buffer selection strategy, of class BasicBufferMgr.
-     */
+
     @Test
     public void testFIFOStrategy4() {
         System.out.println("FIFO Strategy (4 buffers)");

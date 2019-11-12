@@ -113,20 +113,20 @@ public class Buffer {
       return blk;
    }
    
-   public void getTimeIn() {
-       return this.System.nanoTime;
+   public long getTimeIn() {
+       return this.timeIn;
    }
    
-   public void setTimeIn() {
-       return this.System.nanoTime;
+   public long setTimeIn() {
+       this.timeIn = System.nanotime;
    }
    
-   public void getTimeOut() {
-       return this.System.nanoTime;
+   public long getTimeOut() {
+       return this.timeOut;
    }
    
-   public void setTimeOut() {
-       return this.System.nanoTime;
+   public long setTimeOut() {
+       this.timeOut = System.nanotime;
    }
 
    /**
