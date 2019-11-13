@@ -123,7 +123,7 @@ public class BufferMgr {
    }
    
    public void setStrategy(int s) {
-	bufferMgr.setStrategy(s);
+	   bufferMgr.setStrategy(s);
    }
    
    public Buffer[] getBuffers() {

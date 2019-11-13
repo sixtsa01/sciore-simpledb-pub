@@ -117,16 +117,16 @@ public class Buffer {
        return this.timeIn;
    }
    
-   public long setTimeIn() {
-       this.timeIn = System.nanotime;
-   }
-   
    public long getTimeOut() {
        return this.timeOut;
    }
-   
-   public long setTimeOut() {
-       this.timeOut = System.nanotime;
+
+   public void setTimeIn() {
+      this.timeIn = System.nanoTime();
+   }
+
+   public void setTimeOut() {
+      this.timeOut = System.nanoTime();
    }
 
    /**
@@ -149,6 +149,7 @@ public class Buffer {
     */
    void pin() {
       pins++;
+      setTimeIn();
    }
 
    /**
@@ -156,6 +157,7 @@ public class Buffer {
     */
    void unpin() {
       pins--;
+      setTimeOut();
    }
 
    /**
