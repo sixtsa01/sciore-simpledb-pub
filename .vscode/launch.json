@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - CreateStudentDB",
+            "request": "launch",
+            "mainClass": "simpledb.query.CreateStudentDB",
+            "projectName": "server"
+        }
+    ]
+}
