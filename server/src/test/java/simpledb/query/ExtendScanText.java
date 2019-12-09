@@ -46,7 +46,7 @@ public class ExtendScanTest {
     Schema sch = SimpleDB.mdMgr().getTableInfo("student", tx).schema();
     tx.commit();
 
-    Plan extendPlan = new ExtendPlan(studentTblPlan, "gradclass", 0, 4);
+    Plan extendPlan = new ExtendPlan(studentTblPlan, "gradclass", 0, 3);
     Scan extendScan = extendPlan.open();
     assertEquals(true, extendScan.hasField("gradclass"));
   }
