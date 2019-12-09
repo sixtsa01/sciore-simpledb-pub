@@ -17,9 +17,9 @@ import simpledb.tx.Transaction;
  *
  * @author yasiro01
  */
-public class RenameScanTest {
+public class RenameScanText {
   
-  public RenameScanTest() {
+  public RenameScanText() {
   }
   
   @BeforeClass
@@ -43,7 +43,7 @@ public class RenameScanTest {
   public void testDBCreation() {
     System.out.println("RENAME");
     Transaction tx = new Transaction();
-    Schema sch = SimpleDB.mdMgr().getTableInfo("student", tx).schema();
+    Plan studentTblPlan = new TablePlan("student", tx);
     tx.commit();
 
     Plan renamePlan = new RenamePlan(studentTblPlan, "gradyear", "gradDate");

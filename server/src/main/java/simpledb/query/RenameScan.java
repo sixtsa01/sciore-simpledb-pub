@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class RenameScan implements Scan {
    private Scan s;
-   private String oldName, newName;
+   private Collection<String> fieldlist;
    
    /**
     * Creates a project scan having the specified
@@ -19,11 +19,9 @@ public class RenameScan implements Scan {
     * @param s the underlying scan
     * @param fieldlist the list of field names
     */
-   public RenameScan(Scan s, String oldName, String newName) {
+   public RenameScan(Scan s, Collection<String> fieldlist) {
       this.s = s;
-      this.newName = newName;
-      this.oldName = oldName;
-      s.next();
+      this.fieldlist = fieldlist;
    }
    
    public void beforeFirst() {
@@ -70,6 +68,6 @@ public class RenameScan implements Scan {
     * @see simpledb.query.Scan#hasField(java.lang.String)
     */
    public boolean hasField(String fldname) {
-       return s.hasField(fldname);
-      }
+      return fieldlist.contains(fldname);
+   }
 }

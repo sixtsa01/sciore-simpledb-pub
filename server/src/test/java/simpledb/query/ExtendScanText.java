@@ -17,9 +17,9 @@ import simpledb.tx.Transaction;
  *
  * @author yasiro01
  */
-public class ExtendScanTest {
+public class ExtendScanText {
   
-  public ExtendScanTest() {
+  public ExtendScanText() {
   }
   
   @BeforeClass
@@ -44,6 +44,7 @@ public class ExtendScanTest {
     System.out.println("EXTEND");
     Transaction tx = new Transaction();
     Schema sch = SimpleDB.mdMgr().getTableInfo("student", tx).schema();
+    Plan studentTblPlan = new TablePlan("student", tx);
     tx.commit();
 
     Plan extendPlan = new ExtendPlan(studentTblPlan, "gradclass", 0, 4);

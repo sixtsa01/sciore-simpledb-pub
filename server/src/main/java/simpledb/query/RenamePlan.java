@@ -22,7 +22,7 @@ public class RenamePlan implements Plan {
       this.p = p;
       // If statement field name matches oldname, then switch to name
       for (String fldname : p.schema().fields())
-        if(fldname == oldName) {
+        if(fldname.equals(oldName)) {
             schema.addField(newName, p.schema().type(oldName), p.schema().length(oldName));
         } else {
             schema.add(fldname, p.schema());
@@ -35,7 +35,7 @@ public class RenamePlan implements Plan {
     */
    public Scan open() {
       Scan s = p.open();
-      return new RenameScan(s, oldName, newName);
+      return new RenameScan(s, schema.fields());
    }
    
    /**
