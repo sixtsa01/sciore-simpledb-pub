@@ -57,7 +57,12 @@ public class JoinScanTest {
       System.out.println();
       records++;
     }
+<<<<<<< HEAD
     assertEquals(9,records);
     //assertEquals(3, records);
+=======
+    // assertEqual(9,records);
+    assertEquals(9, records);
+>>>>>>> 86b05082b5f944460215dbf5ba7f81ece8a6520a
   }
 }
