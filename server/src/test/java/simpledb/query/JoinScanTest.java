@@ -58,6 +58,6 @@ public class JoinScanTest {
       records++;
     }
     // assertEqual(9,records);
-    assertEquals(3, records);
+    assertEquals(9, records);
   }
 }
