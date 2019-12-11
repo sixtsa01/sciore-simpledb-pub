@@ -5,7 +5,7 @@ package simpledb.query;
  * algebra operator.
  * @author Edward Sciore
  */
-public class JoinScan implements Scan {
+public class UnionScan implements Scan {
    private Scan s1, s2;
    
    /**
@@ -13,10 +13,9 @@ public class JoinScan implements Scan {
     * @param s1 the LHS scan
     * @param s2 the RHS scan
     */
-   public JoinScan(Scan s1, Scan s2) {
+   public UnionScan(Scan s1, Scan s2) {
       this.s1 = s1;
       this.s2 = s2;
-      s1.next();
    }
    
    /**
@@ -27,7 +26,8 @@ public class JoinScan implements Scan {
     * @see simpledb.query.Scan#beforeFirst()
     */
    public void beforeFirst() {
-      s1.next();
+      s1.beforeFirst();
+      s2.beforeFirst();
    }
    
    /**
@@ -39,7 +39,7 @@ public class JoinScan implements Scan {
     * @see simpledb.query.Scan#next()
     */
    public boolean next() {
-       return s2.next();
+       return s1.next() && s2.next();
    }
    
    /**

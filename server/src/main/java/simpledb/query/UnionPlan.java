@@ -6,9 +6,8 @@ import simpledb.record.Schema;
   * relational algebra operator.
   * @author Edward Sciore
   */
-public class JoinPlan implements Plan {
+public class UnionPlan implements Plan {
    private Plan p1, p2;
-   private Predicate p3;
    private Schema schema = new Schema();
    
    /**
@@ -17,11 +16,9 @@ public class JoinPlan implements Plan {
     * @param p1 the left-hand subquery
     * @param p2 the right-hand subquery
     */
-   public JoinPlan(Plan p1, Plan p2, Predicate p3) {
+   public UnionPlan(Plan p1, Plan p2) {
       this.p1 = p1;
       this.p2 = p2;
-      this.p3 = p3;
-      p3.joinPred(p1.schema(), p2.schema());
       schema.addAll(p1.schema());
       schema.addAll(p2.schema());
    }
@@ -33,7 +30,7 @@ public class JoinPlan implements Plan {
    public Scan open() {
       Scan s1 = p1.open();
       Scan s2 = p2.open();
-      return new JoinScan(s1, s2);
+      return new UnionScan(s1, s2);
    }
    
    /**
