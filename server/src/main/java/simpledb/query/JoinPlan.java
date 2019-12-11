@@ -21,7 +21,7 @@ public class JoinPlan implements Plan {
       this.p1 = p1;
       this.p2 = p2;
       this.p3 = p3;
-      p3.joinPred(p1.schema(), p2.schema());
+      this.p3 = p3.joinPred(p1.schema(), p2.schema());
       schema.addAll(p1.schema());
       schema.addAll(p2.schema());
    }
@@ -33,7 +33,7 @@ public class JoinPlan implements Plan {
    public Scan open() {
       Scan s1 = p1.open();
       Scan s2 = p2.open();
-      return new JoinScan(s1, s2);
+      return new SelectScan(new ProductScan(s1, s2), p3);
    }
    
    /**
